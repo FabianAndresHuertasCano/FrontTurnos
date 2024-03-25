@@ -399,3 +399,4 @@ FodyWeavers.xsd
 
 #Carpeta de archivos node_modules
 node_modules/
+.angular/

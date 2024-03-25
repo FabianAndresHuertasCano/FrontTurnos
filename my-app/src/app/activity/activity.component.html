@@ -1,0 +1,37 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex align-items-center">
+            <h5 class="card-title">Lista de Actividades de {{user.name}} </h5>
+            <div class="ms-auto" aria-hidden="true"><button type="button" class="btn btn-primary row justify-content-end">Agregar Nueva Actividad</button></div>
+        </div>
+        <!-- <div class="row">
+            <div class="col float-left">
+                <h5 class="card-title">Lista de Actividades de {{user.name}} </h5>
+            </div>
+            <div class="col float-end">
+                <button type="button" class="btn btn-primary row justify-content-end">Primary</button>
+            </div>
+        </div> -->
+        <table class="table table-striped">
+            <thead>
+                <th scope="col">Acciones</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Minutos</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let activity of activities">
+                    <td>
+                        <div class="d-grid gap-2 d-md-block">
+                            <button type="button" class="btn btn-primary btn-sm" [routerLink]="['/activity/edit' , activity.id]">
+                                <i class="bi bi-pencil-square"></i>
+                                Editar
+                            </button>
+                        </div>
+                    </td>
+                    <td>{{activity.name}}</td>
+                    <td>{{activity.minutes}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

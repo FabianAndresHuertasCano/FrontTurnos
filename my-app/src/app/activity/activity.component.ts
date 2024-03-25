@@ -10,4 +10,19 @@ import { User } from 'src/models/User';
 export class ActivityComponent {
   @Input() user: User = new User();
   activities: Activity[] = [];
+  userName = '';
+  ngOnInit(): void {
+    this.userName = this.user.name;
+    //Actividad de prueba
+    let activity = new Activity();
+    activity.id = 1;
+    activity.name = 'Primera Actividad'
+    activity.minutes = 30
+    this.activities.push(activity)
+    activity = new Activity();
+    activity.id = 2;
+    activity.name = 'Segunda Actividad'
+    activity.minutes = 45
+    this.activities.push(activity)
+  }
 }

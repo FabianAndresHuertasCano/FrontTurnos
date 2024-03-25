@@ -29,6 +29,6 @@ export class UserEditComponent {
   }
   onSubmit(){
     console.log(this.user)
-    alert("Usuario " + this.user.name + " editado");
+    alert("Usuario: " + this.user.name + " editado");
   }
 }

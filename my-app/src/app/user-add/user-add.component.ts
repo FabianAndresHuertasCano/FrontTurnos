@@ -14,6 +14,6 @@ export class UserAddComponent {
   }
   onSubmit(){
     console.log(this.user)
-    alert("Usuario " + this.user.name + " creado");
+    alert("Usuario: " + this.user.name + " creado");
   }
 }

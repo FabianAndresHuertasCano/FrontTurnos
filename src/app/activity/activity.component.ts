@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Activity } from 'src/models/Activity';
 import { User } from 'src/models/User';
+import { BackTurnosService } from 'src/services/back-turnos.service';
 
 @Component({
   selector: 'app-activity',
@@ -11,18 +12,34 @@ export class ActivityComponent {
   @Input() user: User = new User();
   activities: Activity[] = [];
   userName = '';
+  loading: boolean = false;
+  isError: boolean = false;
+  errorMessage: string = '';
+  constructor(
+    private backTurnosService: BackTurnosService
+  ){
+
+  }
   ngOnInit(): void {
     this.userName = this.user.name;
-    //Actividad de prueba
-    let activity = new Activity();
-    activity.id = 1;
-    activity.name = 'Primera Actividad'
-    activity.minutes = 30
-    this.activities.push(activity)
-    activity = new Activity();
-    activity.id = 2;
-    activity.name = 'Segunda Actividad'
-    activity.minutes = 45
-    this.activities.push(activity)
+    console.log(this.user)
+    this.getActivities();
+  }
+  getActivities(){
+    this.loading = true;
+    this.isError = false;
+    this.backTurnosService.getActivities(this.user.id)
+    .subscribe({
+      next:(data) => {
+        this.loading = false;
+        console.log(data);
+        this.activities = data;
+      },
+      error:(error) => {
+        this.loading = false;
+        this.isError = true;
+        this.errorMessage = error.message;
+      }
+    })
   }
 }

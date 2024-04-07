@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from 'src/models/User';
+import { BackTurnosService } from 'src/services/back-turnos.service';
 
 @Component({
   selector: 'app-home',
@@ -8,19 +9,34 @@ import { User } from 'src/models/User';
 })
 export class HomeComponent {
   users: User[] = [];
+  loading: boolean;
+  isError: boolean;
+  errorMessage: string;
+  constructor(
+    private backTurnosService: BackTurnosService
+  ){
+    this.loading = false;
+    this.isError = false;
+    this.errorMessage = "";
+  }
   ngOnInit(): void {
-    //Usuarios de prueba
-    let user = new User();
-    user.id = 1;
-    user.name = 'Usuario de prueba 1'
-    user.document = '123'
-    user.email = 'prueba1@prueba1.com'
-    this.users.push(user)
-    user = new User();
-    user.id = 2
-    user.name = 'Usuario de prueba 2'
-    user.document = '456'
-    user.email = 'prueba2@prueba2.com'
-    this.users.push(user)
+    this.getUsers();
+  }
+  getUsers(){
+    this.loading = true;
+    this.isError = false;
+    this.backTurnosService.getUsers()
+    .subscribe({
+      next:(data) => {
+        this.loading = false;
+        console.log(data);
+        this.users = data;
+      },
+      error:(error) => {
+        this.loading = false;
+        this.isError = true;
+        this.errorMessage = error.message;
+      }
+    })
   }
 }

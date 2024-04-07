@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Activity } from 'src/models/Activity';
+import { BackTurnosService } from 'src/services/back-turnos.service';
 
 @Component({
   selector: 'app-activity-edit',
@@ -10,26 +11,58 @@ import { Activity } from 'src/models/Activity';
 export class ActivityEditComponent {
   id = 0;
   activity: Activity = new Activity();
+  loading: boolean = false;
+  isError: boolean = false;
+  isSuccess: boolean = false;
+  errorMessage: any;
+  successMessage: any;
 
   constructor(
     private router : Router,
     private route: ActivatedRoute,
-    ) {
-      this.id = Number(this.route.snapshot.paramMap.get('id')) ?? 0;
-      console.log(this.id)
-      if(!(this.id > 0)){
-        this.router.navigate(["/home"]);
+    private backTurnosService: BackTurnosService
+  ) {
+    this.id = Number(this.route.snapshot.paramMap.get('id')) ?? 0;
+    console.log(this.id)
+    if(!(this.id > 0)){
+      this.router.navigate(["/home"]);
+    }
+    
+  }
+  ngOnInit(): void {
+    this.getActivityById()
+  }
+  getActivityById(){
+    this.loading = true;
+    this.isError = false;
+    this.backTurnosService.getActivityById(Number(this.id))
+    .subscribe({
+      next:(data) => {
+        this.loading = false;
+        console.log(data);
+        this.activity = data;
+      },
+      error:(error) => {
+        this.loading = false;
+        this.isError = true;
+        this.errorMessage = error.message;
       }
-      
-    }
-    ngOnInit(): void {
-      //Info de prueba
-      this.activity.id = this.id;
-      this.activity.name = 'Actividad de prueba';
-      this.activity.minutes = 60;
-    }
-    onSubmit(){
-      console.log(this.activity)
-      alert("Actividad: " + this.activity.name + " editada");
-    }
+    })
+  }
+  onSubmit(){
+    this.isSuccess = false;
+      this.isError = false;
+      this.backTurnosService.updateActivity(this.activity)
+      .subscribe({
+        next:(data) => {
+          this.isSuccess = true;
+          this.successMessage = data.message;
+        },
+        error:(error) => {
+          console.error(error)
+          this.isError = true;
+          this.errorMessage = error.message;
+        }
+      })
+  }
 }

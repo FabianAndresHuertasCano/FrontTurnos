@@ -2,6 +2,18 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Lista de Usuarios</h5>
+        <div class="alert alert-primary" role="alert" *ngIf="loading">
+            <div class="spinner-border spinner-border-sm" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+            Cargando Usuarios
+        </div>
+        <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="isError">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp;
+            <div>
+              Ocurrió un error al consultar usuarios: {{errorMessage}}
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
                 <th scope="col">Acciones</th>

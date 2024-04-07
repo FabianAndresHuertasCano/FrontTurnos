@@ -6,7 +6,7 @@ Este proyecto fue generado con [Angular CLI](https://github.com/angular/angular-
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-Correr comando `npm install --save-dev --force @angular-devkit/build-angular` para poder ejecutar localmente el proyecto
+Correr comando `npm install --save-dev --force @angular-devkit/build-angular` para poder ejecutar localmente el proyecto cuando sale el error "Error: Could not find the '@angular-devkit/build-angular:dev-server' builder's node package."
 
 ## Code scaffolding
 

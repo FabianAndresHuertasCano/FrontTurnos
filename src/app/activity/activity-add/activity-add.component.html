@@ -1,6 +1,18 @@
 <div class="card">
     <div class="card-body">
         <h5 class="card-title">Nueva Actividad</h5>
+        <div class="alert alert-danger d-flex align-items-center" role="alert" *ngIf="isError">
+            <i class="bi bi-exclamation-triangle-fill"></i>&nbsp;
+            <div>
+              Ocurrió un error al crear la actividad: {{errorMessage}}
+            </div>
+        </div>
+        <div class="alert alert-success d-flex align-items-center" role="alert" *ngIf="isSuccess">
+            <i class="bi bi-check-circle-fill"></i>&nbsp;
+            <div>
+              {{successMessage}}
+            </div>
+        </div>
         <form 
             class="border border-light p-2"
             (ngSubmit)="onSubmit()"

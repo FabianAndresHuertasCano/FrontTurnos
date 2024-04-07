@@ -10,6 +10,7 @@ import { UserEditComponent } from './user-edit/user-edit.component';
 import { ActivityComponent } from './activity/activity.component';
 import { ActivityAddComponent } from './activity/activity-add/activity-add.component';
 import { ActivityEditComponent } from './activity/activity-edit/activity-edit.component';
+import { HttpClientModule } from '@angular/common/http'; 
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ActivityEditComponent } from './activity/activity-edit/activity-edit.co
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
